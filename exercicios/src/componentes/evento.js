@@ -18,6 +18,7 @@ export default class Evento extends Component {
               <TextInput value={this.state.texto}
                          style={padrao.input}
                          onChangeText={this.alterarTexto} />
+            </View>             
         )
     }
 }
