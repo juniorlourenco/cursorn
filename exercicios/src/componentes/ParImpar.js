@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, ViewPagerAndroidBase } from 'react-native';
 
-import padrao from '../estilo/padrao';
+import padrao from '../estilo/Padrao';
 import If from './If';
 
 function parOuImpar (num) {
