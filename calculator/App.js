@@ -3,23 +3,59 @@ import {Platform, StyleSheet, Text, View} from 'react-native';
 import Button from './src/components/Button';
 import Display from './src/components/Display';
 
+const initialState = {
+    displayValue: '0',
+    clearDisplay: false,
+    operation: null,
+    values: [0,0],
+    current: 0,
+
+}
+
 export default class App extends Component {
-    state = {
-        displayValue: '0'
-    }
+    state = { ...initialState }
 
 addDigit = n => {
-    this.setState({displayValue: n })
+    if (n === '.' && this.state.displayValue.includes('.')) {
+        return 
+    }
+    
+    const clearDisplay = this.state.displayValue === '0'
+        || this.state.clearDisplay
+    const currentValue = clearDisplay ? '' : this.state.displayValue
+    const displayValue = currentValue + n
+    this.setState({displayValue, clearDisplay: false})    
+
+    if (n!== '.') {
+        const newValue = parseFloat(displayValue)
+        const values = [...this.state.values]
+        values[this.state.current] = newValue
+        this.setState({ values })
+        }
+    }
 }
 
 clearMemory = () => {
-    this.setState ({displayValue: '0'})
+    this.setState ({ ...initialState })
 }
 
 setOperation = operation => {
-
+    if (this.state.current === 0) {
+        this.setState({ operation, current: 1, clearDisplay: true })
+    } else {
+        const equals = operation === '='
+        const values = [...this.state.values]
+        try {
+            values[0] = 
+                eval (`$values[0]} ${this.state.operation} ${values[1]}`)
+        } catch (e) {
+            values[0] = this.state.values[0]
+        }
+    }
 }
-render() {
+
+render()
+    {
     return (
         <View style={styles.container}>
             <Display value={this.state.displayValue} />
@@ -44,8 +80,9 @@ render() {
             </View>
       </View>
     );
-  }
 }
+
+
 
 const styles = StyleSheet.create({
     container: {
