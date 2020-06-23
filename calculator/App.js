@@ -90,9 +90,9 @@ render()
                 <Button label='=' operation onClick={this.setOperation} />
             </View>
       </View>
-    );
+);
+    }
 }
-
 
 
 const styles = StyleSheet.create({
